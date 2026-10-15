@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>آزمون شخصیت‌شناسی دنیای شرک</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;700&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Vazirmatn', Tahoma, sans-serif;
+      background: linear-gradient(135deg, #1a3a1a 0%, #2d5a2d 40%, #0f2a0f 100%);
+      min-height: 100vh;
+      color: #f0f0e0;
+      line-height: 1.7;
+    }
+    
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    header img {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      border: 4px solid #8b7355;
+    }
+    
+    h1 {
+      font-size: 1.9rem;
+      margin: 20px 0 8px;
+      color: #c9e265;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+    }
+    
+    .subtitle {
+      color: #b8d4a8;
+      font-size: 1.05rem;
+      margin-bottom: 25px;
+    }
+    
+    .card {
+      background: rgba(20, 40, 20, 0.85);
+      border-radius: 18px;
+      padding: 28px 24px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+      border: 1px solid #3d5c3d;
+    }
+    
+    .progress {
+      height: 10px;
+      background: #2a4a2a;
+      border-radius: 5px;
+      margin-bottom: 25px;
+      overflow: hidden;
+    }
+    
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #7cb342, #c9e265);
+      border-radius: 5px;
+      transition: width 0.4s ease;
+    }
+    
+    .question-number {
+      font-size: 0.9rem;
+      color: #8bc34a;
+      margin-bottom: 8px;
+    }
+    
+    .question-text {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 22px;
+      color: #e8f5e9;
+    }
+    
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .option {
+      background: #2e4a2e;
+      border: 2px solid #4a6b4a;
+      border-radius: 12px;
+      padding: 14px 18px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      font-size: 1.05rem;
+      text-align: right;
+    }
+    
+    .option:hover {
+      background: #3d6b3d;
+      border-color: #8bc34a;
+      transform: translateX(-4px);
+    }
+    
+    .option.selected {
+      background: #4a7c3a;
+      border-color: #c9e265;
+      box-shadow: 0 0 12px rgba(139, 195, 66, 0.4);
+    }
+    
+    .btn {
+      display: inline-block;
+      margin-top: 25px;
+      padding: 12px 32px;
+      background: linear-gradient(135deg, #7cb342, #558b2f);
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: inherit;
+    }
+    
+    .btn:hover {
+      background: linear-gradient(135deg, #8bc34a, #689f38);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+    }
+    
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .btn-secondary {
+      background: #555;
+      margin-right: 10px;
+    }
+    
+    .result {
+      text-align: center;
+      display: none;
+    }
+    
+    .result.active {
+      display: block;
+    }
+    
+    .result-image {
+      width: 220px;
+      height: 280px;
+      object-fit: cover;
+      border-radius: 16px;
+      margin: 20px auto;
+      border: 5px solid #c9e265;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      background: #2a4a2a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+    }
+    
+    .result-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+    
+    .character-name {
+      font-size: 1.8rem;
+      color: #c9e265;
+      margin: 15px 0 10px;
+    }
+    
+    .character-desc {
+      font-size: 1.1rem;
+      color: #d0e0c0;
+      line-height: 1.8;
+      margin-bottom: 25px;
+    }
+    
+    .restart {
+      margin-top: 10px;
+    }
+    
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.85rem;
+      color: #7a9a7a;
+    }
+    
+    @media (max-width: 500px) {
+      h1 { font-size: 1.5rem; }
+      .question-text { font-size: 1.1rem; }
+      .option { font-size: 0.95rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="shrek-header.webp" alt="شرک و خر">
+      <h1>آزمون شخصیت‌شناسی دنیای شرک</h1>
+      <p class="subtitle">با پاسخ به چند سؤال جدی، بفهم کدام شخصیت دنیای شرک هستی!</p>
+    </header>
+
+    <div class="card" id="quiz-card">
+      <div class="progress">
+        <div class="progress-bar" id="progress" style="width: 0%"></div>
+      </div>
+      
+      <div id="question-container">
+        <!-- Questions will be injected here -->
+      </div>
+      
+      <div style="text-align: center;">
+        <button class="btn" id="next-btn" disabled>سؤال بعدی</button>
+      </div>
+    </div>
+
+    <div class="card result" id="result-card">
+      <h2 style="color:#c9e265; margin-bottom:10px;">نتیجه آزمون تو:</h2>
+      <div class="result-image" id="result-image"></div>
+      <div class="character-name" id="character-name"></div>
+      <p class="character-desc" id="character-desc"></p>
+      <button class="btn restart" onclick="restartQuiz()">شروع دوباره</button>
+    </div>
+
+    <footer>
+      ساخته شده با الهام از دنیای شرک • فقط برای سرگرمی
+    </footer>
+  </div>
+
+  <script>
+    // شخصیت‌ها و توضیحات
+    const characters = {
+      stepsisters: {
+        name: "خواهران ناتنی زشت (Ugly Stepsisters)",
+        img: "chars/stepsisters.png",
+        desc: "تو اهل رقابت و خودنمایی هستی. دوست داری همیشه در مرکز توجه باشی و گاهی برای رسیدن به هدفت کمی زیاده‌روی می‌کنی. ظاهر و جایگاه اجتماعی برایت اهمیت زیادی دارد.",
+        color: "#e91e63"
+      },
+      donkey: {
+        name: "خر (Donkey)",
+        img: "chars/donkey.png",
+        desc: "تو آدمی اجتماعی، پرحرف و وفادار هستی. همیشه سعی می‌کنی فضای اطرافت را با انرژی مثبت پر کنی. گاهی ممکن است کمی اعصاب‌خردکن باشی، اما قلبت پاک و مهربان است.",
+        color: "#795548"
+      },
+      farquaad: {
+        name: "لرد فارکوآد (Lord Farquaad)",
+        img: "chars/farquaad.png",
+        desc: "تو جاه‌طلب، منظم و قدرت‌طلب هستی. دوست داری همه چیز تحت کنترل تو باشد و برای رسیدن به اهدافت سخت تلاش می‌کنی. گاهی ممکن است کمی سخت‌گیر و خودمحور به نظر برسی.",
+        color: "#9c27b0"
+      },
+      wolf: {
+        name: "گرگ بد (Big Bad Wolf)",
+        img: "chars/wolf.png",
+        desc: "تو باهوش، حیله‌گر و استراتژیست هستی. ترجیح می‌دهی از پشت صحنه کارها را پیش ببری و همیشه چند قدم جلوتر فکر می‌کنی. ظاهر آرام تو فریبنده است.",
+        color: "#607d8b"
+      },
+      executioner: {
+        name: "جلاد (The Executioner)",
+        img: "chars/executioner.png",
+        desc: "تو وظیفه‌شناس، جدی و پایبند به اصول هستی. کمتر حرف می‌زنی و بیشتر عمل می‌کنی. وقتی مسئولیتی به تو سپرده شود، تا آخر آن را انجام می‌دهی.",
+        color: "#455a64"
+      },
+      fairy: {
+        name: "فرشته نجات / مادرخوانده جادوگر (Fairy Godmother)",
+        img: "chars/fairy.png",
+        desc: "تو ظاهری مهربان و کمک‌کننده داری، اما در باطن استراتژیست و تأثیرگذار هستی. دوست داری دیگران را به سمت مسیر مورد نظرت هدایت کنی و گاهی از قدرت نرم خود استفاده می‌کنی.",
+        color: "#e1bee7"
+      }
+    };
+
+    // سؤالات جدی و بی‌ربط به شخصیت‌ها
+    const questions = [
+      {
+        text: "وقتی در محیط کار با یک مشکل غیرمنتظره و پیچیده روبه‌رو می‌شوی، اولین واکنش تو چیست؟",
+        options: [
+          { text: "سریع برنامه‌ریزی می‌کنم و مسئولیت را به دست می‌گیرم", scores: { farquaad: 3, executioner: 2 } },
+          { text: "با دیگران مشورت می‌کنم و فضای مثبت ایجاد می‌کنم", scores: { donkey: 3, fairy: 1 } },
+          { text: "آرام و دقیق وضعیت را تحلیل می‌کنم و منتظر فرصت مناسب می‌مانم", scores: { wolf: 3, fairy: 2 } },
+          { text: "سعی می‌کنم خودم را بهتر نشان دهم و از موقعیت به نفع خودم استفاده کنم", scores: { stepsisters: 3, farquaad: 1 } }
+        ]
+      },
+      {
+        text: "در تصمیم‌گیری‌های مهم زندگی، بیشتر به چه چیزی تکیه می‌کنی؟",
+        options: [
+          { text: "منطق و برنامه‌ریزی بلندمدت", scores: { farquaad: 2, executioner: 3 } },
+          { text: "احساسات و انرژی لحظه‌ای", scores: { donkey: 3, stepsisters: 1 } },
+          { text: "تحلیل دقیق موقعیت و پیش‌بینی رفتار دیگران", scores: { wolf: 3, fairy: 2 } },
+          { text: "تأثیرگذاری روی دیگران و هدایت آن‌ها", scores: { fairy: 3, stepsisters: 2 } }
+        ]
+      },
+      {
+        text: "در کار گروهی، نقش مورد علاقه تو کدام است؟",
+        options: [
+          { text: "رهبر و تصمیم‌گیرنده اصلی", scores: { farquaad: 3, executioner: 1 } },
+          { text: "کسی که روحیه تیم را بالا نگه می‌دارد", scores: { donkey: 3, fairy: 1 } },
+          { text: "ناظر و تحلیل‌گر که از پشت صحنه کار می‌کند", scores: { wolf: 3, fairy: 2 } },
+          { text: "کسی که استانداردها را حفظ می‌کند و کار را تمام می‌کند", scores: { executioner: 3, farquaad: 1 } }
+        ]
+      },
+      {
+        text: "وقتی با انتقاد جدی روبه‌رو می‌شوی، معمولاً چه واکنشی نشان می‌دهی؟",
+        options: [
+          { text: "آن را شخصی می‌گیرم و سعی می‌کنم بهتر به نظر برسم", scores: { stepsisters: 3, farquaad: 1 } },
+          { text: "با شوخی و صحبت موضوع را سبک می‌کنم", scores: { donkey: 3 } },
+          { text: "آرام می‌مانم و از آن برای برنامه‌ریزی بعدی استفاده می‌کنم", scores: { wolf: 2, executioner: 2, fairy: 1 } },
+          { text: "آن را جدی می‌گیرم و فوراً برای اصلاح اقدام می‌کنم", scores: { executioner: 3, farquaad: 2 } }
+        ]
+      },
+      {
+        text: "هدف اصلی تو در زندگی بیشتر به کدام نزدیک است؟",
+        options: [
+          { text: "رسیدن به قدرت و جایگاه بالا", scores: { farquaad: 3, stepsisters: 1 } },
+          { text: "داشتن روابط گرم و دوستی‌های واقعی", scores: { donkey: 3 } },
+          { text: "تأثیرگذاری نامحسوس روی مسیر دیگران", scores: { fairy: 3, wolf: 2 } },
+          { text: "انجام درست وظایف و حفظ نظم", scores: { executioner: 3 } }
+        ]
+      },
+      {
+        text: "در مواجهه با شکست یا ناکامی، بیشتر چه می‌کنی؟",
+        options: [
+          { text: "سریع خودم را جمع می‌کنم و دوباره تلاش می‌کنم", scores: { farquaad: 2, executioner: 3 } },
+          { text: "با دیگران حرف می‌زنم و انرژی می‌گیرم", scores: { donkey: 3 } },
+          { text: "عقب می‌نشینم و استراتژی جدیدی طراحی می‌کنم", scores: { wolf: 3, fairy: 2 } },
+          { text: "سعی می‌کنم ظاهر را حفظ کنم و ضعف را پنهان کنم", scores: { stepsisters: 3, farquaad: 1 } }
+        ]
+      },
+      {
+        text: "وقتی کسی از تو کمک می‌خواهد، معمولاً چگونه پاسخ می‌دهی؟",
+        options: [
+          { text: "اگر به نفع من باشد، کمک می‌کنم", scores: { stepsisters: 2, farquaad: 2, wolf: 1 } },
+          { text: "با انرژی و اشتیاق کامل کمک می‌کنم", scores: { donkey: 3 } },
+          { text: "کمک می‌کنم اما طوری که مسیر مورد نظرم پیش برود", scores: { fairy: 3, wolf: 2 } },
+          { text: "اگر وظیفه‌ام باشد، بدون حرف اضافه انجام می‌دهم", scores: { executioner: 3 } }
+        ]
+      }
+    ];
+
+    let currentQuestion = 0;
+    let scores = {
+      stepsisters: 0,
+      donkey: 0,
+      farquaad: 0,
+      wolf: 0,
+      executioner: 0,
+      fairy: 0
+    };
+    let selectedOption = null;
+
+    const questionContainer = document.getElementById('question-container');
+    const nextBtn = document.getElementById('next-btn');
+    const progressBar = document.getElementById('progress');
+    const quizCard = document.getElementById('quiz-card');
+    const resultCard = document.getElementById('result-card');
+
+    function showQuestion() {
+      const q = questions[currentQuestion];
+      selectedOption = null;
+      nextBtn.disabled = true;
+
+      let html = `
+        <div class="question-number">سؤال ${currentQuestion + 1} از ${questions.length}</div>
+        <div class="question-text">${q.text}</div>
+        <div class="options">
+      `;
+
+      q.options.forEach((opt, index) => {
+        html += `<div class="option" data-index="${index}">${opt.text}</div>`;
+      });
+
+      html += `</div>`;
+      questionContainer.innerHTML = html;
+
+      // Progress
+      const progress = ((currentQuestion) / questions.length) * 100;
+      progressBar.style.width = progress + '%';
+
+      // Click handlers
+      document.querySelectorAll('.option').forEach(el => {
+        el.addEventListener('click', () => {
+          document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+          el.classList.add('selected');
+          selectedOption = parseInt(el.dataset.index);
+          nextBtn.disabled = false;
+        });
+      });
+    }
+
+    nextBtn.addEventListener('click', () => {
+      if (selectedOption === null) return;
+
+      // Add scores
+      const selected = questions[currentQuestion].options[selectedOption];
+      for (let key in selected.scores) {
+        scores[key] += selected.scores[key];
+      }
+
+      currentQuestion++;
+
+      if (currentQuestion < questions.length) {
+        showQuestion();
+      } else {
+        showResult();
+      }
+    });
+
+    function showResult() {
+      // Find highest score
+      let maxScore = -1;
+      let winner = 'donkey';
+      for (let key in scores) {
+        if (scores[key] > maxScore) {
+          maxScore = scores[key];
+          winner = key;
+        }
+      }
+
+      const char = characters[winner];
+
+      quizCard.style.display = 'none';
+      resultCard.classList.add('active');
+
+      document.getElementById('character-name').textContent = char.name;
+      document.getElementById('character-desc').textContent = char.desc;
+
+      const imgDiv = document.getElementById('result-image');
+      imgDiv.innerHTML = `<img src="${char.img}" alt="${char.name}">`;
+      imgDiv.style.borderColor = char.color;
+
+      // Progress full
+      progressBar.style.width = '100%';
+    }
+
+    function restartQuiz() {
+      currentQuestion = 0;
+      scores = {
+        stepsisters: 0,
+        donkey: 0,
+        farquaad: 0,
+        wolf: 0,
+        executioner: 0,
+        fairy: 0
+      };
+      quizCard.style.display = 'block';
+      resultCard.classList.remove('active');
+      showQuestion();
+    }
+
+    // Start
+    showQuestion();
+  </script>
+</body>
+</html>
